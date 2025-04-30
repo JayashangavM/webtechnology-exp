@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Seed Management System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container-box {
+            border: 2px solid #343a40;
+            border-radius: 10px;
+            padding: 30px;
+            background-color: white;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .error { color: red; font-size: 14px; }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="bg-dark text-white text-center py-4">
+        <h1 class="display-4">Seed Management System</h1>
+    </header>
+
+    <div class="container mt-5">
+        <div class="container-box">
+            <h3 class="text-center mb-4">Create an Account</h3>
+            <form id="registerForm" onsubmit="validateForm(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="username">
+                    <small class="error" id="usernameError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="email">
+                    <small class="error" id="emailError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password">
+                    <small class="error" id="passwordError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword">
+                    <small class="error" id="confirmPasswordError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" id="phone">
+                    <small class="error" id="phoneError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label><br>
+                    <input type="radio" name="gender" value="Male"> Male
+                    <input type="radio" name="gender" value="Female"> Female
+                    <small class="error d-block" id="genderError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Country</label>
+                    <select class="form-control" id="country">
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                    </select>
+                    <small class="error" id="countryError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea class="form-control" id="address"></textarea>
+                    <small class="error" id="addressError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <input type="date" class="form-control" id="dob">
+                    <small class="error" id="dobError"></small>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" class="form-control" id="city">
+                    <small class="error" id="cityError"></small>
+                </div>
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" class="form-control" id="state">
+                    <small class="error" id="stateError"></small>
+                </div>
+                <div class="form-group">
+                    <label>ZIP Code</label>
+                    <input type="text" class="form-control" id="zip">
+                    <small class="error" id="zipError"></small>
+                </div>
+                <div class="form-group">
+                    <label>Security Question: What is your favorite color?</label>
+                    <input type="text" class="form-control" id="securityAnswer">
+                    <small class="error" id="securityAnswerError"></small>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="terms"> I agree to the Terms & Conditions
+                    <small class="error d-block" id="termsError"></small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+            <a href="index.html" class="btn btn-secondary btn-block mt-3">Back to Home</a>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>For more info, <a href="mailto:support@seedmanagement.com" class="text-white">contact us</a>.</p>
+    </footer>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+            function showError(id, message) {
+                document.getElementById(id + "Error").textContent = message;
+                isValid = false;
+            }
+
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let phone = document.getElementById("phone").value.trim();
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let country = document.getElementById("country").value;
+            let address = document.getElementById("address").value.trim();
+            let dob = document.getElementById("dob").value;
+            let city = document.getElementById("city").value.trim();
+            let state = document.getElementById("state").value.trim();
+            let zip = document.getElementById("zip").value.trim();
+            let securityAnswer = document.getElementById("securityAnswer").value.trim();
+            let terms = document.getElementById("terms").checked;
+
+            if (!username) showError("username", "Required");
+            if (!email.match(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/)) showError("email", "Invalid email");
+            if (password.length < 6) showError("password", "Min 6 characters");
+            if (confirmPassword !== password) showError("confirmPassword", "Passwords do not match");
+            if (!phone.match(/^\d{10}$/)) showError("phone", "Invalid phone");
+            if (!gender) showError("gender", "Required");
+            if (!country) showError("country", "Required");
+            if (!address) showError("address", "Required");
+            if (!dob) showError("dob", "Required");
+            if (!city) showError("city", "Required");
+            if (!state) showError("state", "Required");
+            if (!zip) showError("zip", "Required");
+            if (!securityAnswer) showError("securityAnswer", "Required");
+            if (!terms) showError("terms", "Required");
+
+            if (isValid) {
+                alert("Registration successful!");
+                document.getElementById("registerForm").reset();
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll("input, textarea, select").forEach(input => {
+                input.addEventListener("focus", () => input.style.border = "2px solid blue");
+                input.addEventListener("blur", () => input.style.border = "");
+            });
+        });
+    </script>
+</body>
+</html>
