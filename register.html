@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register New Seed</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4fff4;
+      padding: 20px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e8b57;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+
+    button {
+      background-color: #2e8b57;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #246b45;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌿 Register New Seed</h2>
+  <form action="/seeds" method="POST">
+    Name: <input name="name" type="text" required><br>
+    Email: <input name="email" type="email" required><br>
+    Seed Type: <input name="seedType" type="text" required><br>
+    Quantity: <input name="quantity" type="number" required><br>
+    Feedback: <textarea name="feedback"></textarea><br>
+    <button type="submit">Register</button>
+  </form>
+</body>
+</html>
