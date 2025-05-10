@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Seed Management System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function calculateTotal() {
+            var product = document.getElementById("product").value;
+            var quantity = parseInt(document.getElementById("quantity").value) || 0;
+            var distance = parseFloat(document.getElementById("distance").value) || 0;
+
+            // Predefined prices for each product
+            var prices = {
+                "Tomato": 10,
+                "Cucumber": 15,
+                "Carrot": 12,
+                "Lettuce": 8
+            };
+
+            // Auto-fill price per seed based on selected product
+            var pricePerSeed = prices[product] || 0;
+            document.getElementById("pricePerSeed").value = pricePerSeed.toFixed(2);
+
+            // Calculate total price before discounts
+            var total = pricePerSeed * quantity;
+
+            // Recommended discount based on quantity
+            var discountRate = 0;
+            if (quantity > 100) {
+                discountRate = 15;
+            } else if (quantity > 50) {
+                discountRate = 10;
+            } else if (quantity > 10) {
+                discountRate = 5;
+            }
+
+            document.getElementById("discountRate").value = discountRate;
+
+            // Recommended GST based on quantity
+            var gstRate = quantity > 50 ? 12 : 5;
+            document.getElementById("gstRate").value = gstRate;
+
+            // Calculate values
+            var discount = (total * discountRate) / 100;
+            var totalAfterDiscount = total - discount;
+            var gstAmount = (totalAfterDiscount * gstRate) / 100;
+
+            // Delivery charge calculation (Rs. 5 per km)
+            var deliveryCharge = distance * 5;
+            document.getElementById("deliveryCharge").value = deliveryCharge.toFixed(2);
+
+            // Final payable amount
+            var finalAmount = totalAfterDiscount + gstAmount + deliveryCharge;
+
+            // Update UI
+            document.getElementById("seedPrice").innerText = "Price per seed: Rs. " + pricePerSeed.toFixed(2);
+            document.getElementById("totalPrice").innerText = "Total Price: Rs. " + total.toFixed(2);
+            document.getElementById("discount").innerText = "Discount Applied (" + discountRate + "%): Rs. " + discount.toFixed(2);
+            document.getElementById("gst").innerText = "GST (" + gstRate + "%): Rs. " + gstAmount.toFixed(2);
+            document.getElementById("delivery").innerText = "Delivery Charge (Rs. 5/km): Rs. " + deliveryCharge.toFixed(2);
+            document.getElementById("finalAmount").innerText = "Final Payable Amount: Rs. " + finalAmount.toFixed(2);
+        }
+    </script>
+</head>
+<body class="bg-light">
+
+    <div class="container py-3">
+        <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+
+    <header class="bg-dark text-white text-center py-4">
+        <h1 class="display-4">Seed Management System - Order</h1>
+    </header>
+
+    <div class="container py-5">
+        <h3>Place Your Order</h3>
+        <form>
+            <div class="form-group">
+                <label for="product">Choose Product</label>
+                <select class="form-control" id="product" onchange="calculateTotal()">
+                    <option value="Tomato">Tomato</option>
+                    <option value="Cucumber">Cucumber</option>
+                    <option value="Carrot">Carrot</option>
+                    <option value="Lettuce">Lettuce</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pricePerSeed">Price per Seed (Rs.)</label>
+                <input type="number" class="form-control" id="pricePerSeed" readonly>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" oninput="calculateTotal()">
+            </div>
+            <div class="form-group">
+                <label for="discountRate">Discount (%) (Auto-Recommended)</label>
+                <input type="number" class="form-control" id="discountRate" readonly>
+            </div>
+            <div class="form-group">
+                <label for="gstRate">GST Rate (%) (Auto-Recommended)</label>
+                <input type="number" class="form-control" id="gstRate" readonly>
+            </div>
+            <div class="form-group">
+                <label for="distance">Distance (km)</label>
+                <input type="number" class="form-control" id="distance" placeholder="Enter delivery distance" oninput="calculateTotal()">
+            </div>
+            <div class="form-group">
+                <label for="deliveryCharge">Delivery Charge (Rs. 5/km)</label>
+                <input type="number" class="form-control" id="deliveryCharge" readonly>
+            </div>
+
+            <p id="seedPrice" class="font-weight-bold">Price per seed: Rs. 0</p>
+            <p id="totalPrice" class="font-weight-bold text-primary">Total Price: Rs. 0</p>
+            <p id="discount" class="text-success font-weight-bold">Discount Applied: Rs. 0</p>
+            <p id="gst" class="text-warning font-weight-bold">GST: Rs. 0</p>
+            <p id="delivery" class="text-info font-weight-bold">Delivery Charge: Rs. 0</p>
+            <p id="finalAmount" class="text-danger font-weight-bold">Final Payable Amount: Rs. 0</p>
+
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>Thank you for visiting. For more information, <a href="mailto:support@seedmanagement.com" class="text-white">contact us via email</a>.</p>
+    </footer>
+
+</body>
+</html>
