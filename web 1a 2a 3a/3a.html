@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seed Management - Mouse Events</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #d0f0c0, #f0fff0);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
+      padding: 25px;
+      font-size: 28px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      padding: 30px;
+      gap: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex: 1 1 350px;
+      max-width: 500px;
+    }
+
+    .event-box {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      min-height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .event-box:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    }
+
+    button {
+      background: linear-gradient(to right, #56ab2f, #a8e063);
+      border: none;
+      padding: 12px 24px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #a8e063, #56ab2f);
+    }
+
+    #output {
+      margin: 20px;
+      padding: 10px;
+      background-color: #fff3cd;
+      border: 2px dashed #ffc107;
+      font-size: 18px;
+      color: #856404;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      background: linear-gradient(to right, #e1eec3, #f05053);
+      text-align: center;
+      padding: 15px;
+      color: white;
+      font-weight: bold;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>🌱 Seed Management System - Mouse Events Demo</header>
+
+  <div class="container">
+    <!-- Left Column -->
+    <div class="column">
+      <!-- Click Event -->
+      <div class="event-box">
+        <button id="clickEvent">Click to Place Order</button>
+      </div>
+
+      <!-- Mouse Over / Out -->
+      <div class="event-box" id="hoverBox">
+        🖱️ Hover over this seed card!
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="column">
+      <!-- Double Click Event -->
+      <div class="event-box" id="dblClickBox">
+        👆 Double Click for Seed Info
+      </div>
+
+      <!-- Mouse Down / Up -->
+      <div class="event-box" id="mouseBox">
+        🖐 Press and Release Here
+      </div>
+    </div>
+  </div>
+
+  <div id="output">✨ Interact with the boxes above to trigger mouse events!</div>
+
+  <footer>&copy; 2025 Seed Management System | Designed by You</footer>
+
+  <script>
+    const output = document.getElementById("output");
+
+    // Click Event
+    document.getElementById("clickEvent").addEventListener("click", function () {
+      output.innerText = "✅ Order placed for organic sunflower seeds!";
+    });
+
+    // Double Click Event
+    document.getElementById("dblClickBox").addEventListener("dblclick", function () {
+      output.innerText = "🔎 Seed Info: Hybrid Tomato - High Yield, 95% Germination Rate.";
+    });
+
+    // Hover (Mouse Over / Out)
+    const hoverBox = document.getElementById("hoverBox");
+    hoverBox.addEventListener("mouseover", function () {
+      hoverBox.style.background = "linear-gradient(to right, #fdfbfb, #ebedee)";
+      output.innerText = "🌿 You're hovering over a special seed card!";
+    });
+    hoverBox.addEventListener("mouseout", function () {
+      hoverBox.style.background = "linear-gradient(to right, #fbc2eb, #a6c1ee)";
+      output.innerText = "🚫 Mouse left the seed card.";
+    });
+
+    // Mouse Down / Up
+    const mouseBox = document.getElementById("mouseBox");
+    mouseBox.addEventListener("mousedown", function () {
+      mouseBox.style.background = "linear-gradient(to right, #f093fb, #f5576c)";
+      output.innerText = "⬇️ Mouse button pressed!";
+    });
+    mouseBox.addEventListener("mouseup", function () {
+      mouseBox.style.background = "linear-gradient(to right, #fbc2eb, #a6c1ee)";
+      output.innerText = "⬆️ Mouse button released!";
+    });
+  </script>
+
+</body>
+</html>
